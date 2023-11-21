@@ -18,7 +18,7 @@ begin
     process (adder, subtractor, multiplication, divider, reset)
     begin
 		if reset = '1' then 
-			output <= "1010";
+			output <= "0000"; -- Do Nothing
         elsif mode = "00" then
             if A(15) xor B(15) = ('0') then
                 output <= adder;
@@ -40,7 +40,7 @@ begin
             output <= divider;
         
         else
-            output <= ('0000');
+            output <= ('0000'); -- Do Nothing
         
         end if;
 
