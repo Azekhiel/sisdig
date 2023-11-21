@@ -5,10 +5,10 @@ use IEEE.std_logic_unsigned.all;
 
 entity mode is
     port (
-		reset : in std_logic; 
+	reset : in std_logic; 
         operasi: in std_logic_vector (1 down to 0);
         adder, subtractor, multiplication, divider: in std_logic_vector (3 down to 0);
-        A, B: in std_logic_vector (15 down to 0);
+        a, b: in std_logic_vector (15 down to 0);
         output: out std_logic_vector (3 down to 0)
 	);
 end mode;
@@ -20,14 +20,14 @@ begin
 		if reset = '1' then 
 			output <= "0000"; -- Do Nothing
         elsif mode = "00" then
-            if A(15) xor B(15) = ('0') then
+            if a(15) xor b(15) = ('0') then
                 output <= adder;
             else
                 output <= subtractor;
             end if;
 
         elsif mode = "01" then
-            if A(15) xor B(15) = ('0') then
+            if a(15) xor b(15) = ('0') then
                 output <= subtractor;
             else
                 output <= adder;
