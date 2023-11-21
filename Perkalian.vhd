@@ -59,32 +59,36 @@ begin
 			o_mantissa := (others => '0');
 		
 		else
+			
 			--Proses Sign 
 			o_sign := a_sign XOR b_sign;
 			
 			-- Proses Mantissa
-			penyimpanan := (others => '0');
+			hasil := (others => '0');
 			for i in 0 to 10 loop 
+				penyimpanan := (others => '0');
 				if(a_mantissa(i)='1') then			
 					penyimpanan((10+i) downto i) := b_mantissa;
 				end if; 
-				proses := penyimpanan;
+				
+				proses := hasil;
 				-- Full Adder
+				carry := '0';
 				for I in 0 to 21 loop
 					hasil(I) := proses(I) xor penyimpanan(I) xor carry;
 					carry  := (penyimpanan(I) and proses(I)) or (penyimpanan(I) and carry) or (proses(I) and carry);
 				end loop;
+				
 			end loop;
-			o_mantissa := hasil(21 downto 1);
-			
-			carry := '0'; 
+			o_mantissa := hasil(20 downto 0);
+			 
+			 carry := hasil(21);
 			-- Proses Exponent
 			for I in 0 to 5 loop
 				exponent(I) := a_exponent(I) xor b_exponent(I) xor carry ;
 				carry := ( a_exponent(I) and b_exponent(I) ) or ( a_exponent(I) and carry ) or ( b_exponent(I) and carry ) ;
 			end loop;
-			exponent(6) := carry;
-			o_exponent := exponent(6 downto 1);
+			o_exponent := (exponent(5 downto 0));
 		end if;
 		
 		-- Hasil Output
