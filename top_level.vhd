@@ -48,16 +48,22 @@ use work.all;
 		-- komponen operasi pengurangan
 		component subtractor is
 			port(
-			x, y: in std_logic_vector(3 downto 0);
-			output: out std_logic_vector(3 downto 0)
+			A,B : In std_logic_vector (15 downto 0);
+		 	borrow_in : In std_logic; 
+		 	mode : in std_logic_vector (1 downto 0);  
+		 	D : OUT std_logic_vector (27 downto 0);
+		 	borrow_out : out std_logic
 			);
 		end component;
 
 		-- komponen operasi penjumlahan
 		component adder is
 			port(
-			x, y: in std_logic_vector(3 downto 0);
-			output: out std_logic_vector(3 downto 0)
+			A,B : In std_logic_vector (15 downto 0);
+		 	carry_in : In std_logic; 
+		 	mode : in std_logic_vector (1 downto 0);  
+		 	S : OUT std_logic_vector (16 downto 0);
+		 	carry_out : out std_logic
 			);
 		end component;
 		
