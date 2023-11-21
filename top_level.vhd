@@ -45,6 +45,15 @@ use work.all;
 			);
 		end component;
 
+		-- komponen operasi pembagian
+		component divider is
+			port(
+			x : in  STD_LOGIC_VECTOR (15 downto 0);
+           		y : in  STD_LOGIC_VECTOR (15 downto 0);
+           		z : out  STD_LOGIC_VECTOR (27 downto 0));
+			);
+		end component;
+		
 		-- komponen operasi pengurangan
 		component subtractor is
 			port(
