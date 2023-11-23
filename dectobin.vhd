@@ -37,8 +37,7 @@ begin
     begin
         int := int_in;
         float := float_in;
-        
-        -- Integer part to BCD
+
         for i in 0 to 10 loop
             if int mod 2 = 1 then
                 int1(i) := '1';
@@ -48,7 +47,6 @@ begin
             int := int / 2;
         end loop;
 
-        -- Float part to BCD
         if float > 0 then
             while float < 1000000000 and float > 0 loop
                 float := float * 10;
