@@ -79,6 +79,8 @@ begin
 			
 		exp := "00000" + (l - 1) + 15 - 11;
 		mantissa := out_signal((l - 1) downto (l - 10));
+
+		out_bin <= exp & mantissa;
 		
     
 	 end process;
