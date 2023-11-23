@@ -59,7 +59,7 @@ else
  temp_3 := ('0' & x_exponent) - ('0' & y_exponent) + 31;
 temp_1 := "01" & x_mantissa & "0000000000";
 digit_loop: for i in 22 downto 0 loop
- temp_2 := temp_1 - ("01" & y_mantissa);
+ temp_2 := temp_1 - ("01" & y_mantissa & "0000000000");
  if ( temp_2(21)='0' ) then 
     a(i):='1';
     temp_1 := temp_2;
