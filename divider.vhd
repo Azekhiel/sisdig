@@ -56,7 +56,7 @@ elsif (y_exponent=0 or x_exponent=31) then
  z_exponent := "111111";
  z_mantissa := (others=>'0');
 else
- temp_3 := ('0' & x_exponent) - ('0' & y_exponent) + 15;
+ temp_3 := ('0' & x_exponent) - ('0' & y_exponent) + 31;
 temp_1 := "01" & x_mantissa & "0000000000";
 digit_loop: for i in 22 downto 0 loop
  temp_2 := temp_1 - ("01" & y_mantissa);
@@ -77,18 +77,9 @@ else
  temp_3 := temp_3 - 1;
 end if;
 
-if (temp_3(5)='1') then
- if (temp_3(4)='1') then
-    z_exponent := "000000";
-    z_mantissa := (others=>'0');
- else 
-    z_exponent := "111111";
-    z_mantissa := (others=>'0');
- end if;
-else
-  z_exponent := temp_3(5 downto 0);
+
 end if;
-end if;
+ z_exponent := temp_3(5 downto 0);
 z(20 downto 0) <= z_mantissa;
 z(26 downto 21) <= z_exponent;
 z(27) <= z_sign;
