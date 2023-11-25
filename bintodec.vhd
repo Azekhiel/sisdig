@@ -33,6 +33,8 @@ begin
 			kali1 <= kali1 + 1;
 			hasil_dec <= init + int1;
 			init <= int1;
+		else
+			kali1 <= kali1 + 1;
 		end if;
 	end loop;
 
@@ -42,24 +44,10 @@ begin
 			kali2 <= kali2 - 1;
 			hasil_mant <= init2 + int2;
 			init2 <= int2;
+		else
+			kali2 <= kali2 - 1;
 		end if;
 	end loop;
 	
 end process;
 end behavioral;
-
-		-- for j in 5 downto 0 loop
-			-- if inp_bin(i) = '1' then
-				-- int1 := (2**j);
-				-- hasil_dec <= init + int1;
-				-- init <= int1;
-			-- end if;
-		-- end loop;
-		
-		-- for u in -1 downto -22 loop
-			-- if inp_bin(k) = '1' then
-				-- int2 := (2**u);
-				-- hasil_mant <= init2 + int2;
-				-- init2 <= int2;
-			-- end if;
-		-- end loop;
