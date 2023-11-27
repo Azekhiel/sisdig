@@ -12,7 +12,7 @@ end fullsub;
 
 Architecture arc of fullsub is 
 begin
-	D <= a XOR b XOR borrow_in; 
-	borrow_out <= ((not a) and b) or ((not borrow_in) and (a xor b)); 
+	D <= (a XOR b) XOR borrow_in; 
+	borrow_out <= ((not a) and b) or (borrow_in and (not(a xor b))); 
 end arc;
 	
