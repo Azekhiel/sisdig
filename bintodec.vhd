@@ -27,7 +27,7 @@ variable int2 : integer;
 
 
 begin
-	for i in 22 to 27 loop
+	for i in 21 to 26 loop
 		if inp_bin(i) = '1' then
 			int1 := (2**kali1);
 			kali1 <= kali1 + 1;
@@ -38,7 +38,7 @@ begin
 		end if;
 	end loop;
 
-	for j in 21 downto 0 loop
+	for j in 20 downto 0 loop
 		if inp_bin(j) = '1' then
 			int2 := (2**kali2);
 			kali2 <= kali2 - 1;
