@@ -9,7 +9,6 @@ entity ContohUART is
 		rst_n 			: in std_logic;
 		
 -- paralel part
-		button 			: in std_logic;
 		Seven_Segment	: out std_logic_vector(7 downto 0) ;
 		Digit_SS			: out std_logic_vector(3 downto 0) ;
 		
@@ -36,15 +35,31 @@ Architecture RTL of ContohUART is
 	);
 	end Component;
 	
+	Component kalkulator is
+	port(
+			input1, input2: in std_logic_vector(15 downto 0); -- input angka
+			in_sel : in std_logic_vector(1 downto 0);
+			result: out std_logic_vector(27 downto 0) -- output hasil operasi
+	);
+	end Component;
+	
+	Component bintodec is
+	port(
+			inp_bin		: in std_logic_vector (27 downto 0); 
+			out_dec 	: out integer
+	);
+	end Component;
+	
 	signal send_data,receive_data	: std_logic_vector(7 downto 0);
 	signal receive		: std_logic;
 	signal receive_c	: std_logic;
+	signal out_dec		: std_logic;
 	
 begin
 
 	UART: my_uart_top 
 	port map (
-			clk 			=> clk,
+			clk 			=> clk, --dalam komponen => luar komponen
 			rst_n 		=> rst_n,
 			send 			=> button,
 			send_data	=> send_data,
@@ -56,6 +71,19 @@ begin
 	
 	send_data <= "01010101";
 	
+	Converter: bintodec
+	port map (
+			inp_bin		=> rs232_tx
+			out_dec		=> out_dec
+	
+	Calculator: Calculator
+	port map (
+			input1		=> receive()
+			input2		=> receive()
+			in_sel		=> receive()
+			result		=> send
+	
+--	dectoascii kalo perlu andaikan terminal gabisa masukin integer value
 	
 	Process(clk)
 	begin
