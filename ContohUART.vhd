@@ -50,10 +50,24 @@ Architecture RTL of ContohUART is
 	);
 	end Component;
 	
+	Component register_out is
+	port(
+			reg_in   : IN STD_LOGIC_VECTOR (7 DOWNTO 0); -- input.
+			ld  : IN STD_LOGIC; -- load/enable.
+			clr : IN STD_LOGIC; -- async. clear.
+			clk : IN STD_LOGIC; -- clock.
+			reg_out   : OUT STD_LOGIC_VECTOR (32 DOWNTO 0) -- output
+	);
+	end Component;
+	
 	signal send_data,receive_data	: std_logic_vector(7 downto 0);
 	signal receive		: std_logic;
 	signal receive_c	: std_logic;
 	signal out_dec		: std_logic;
+	signal rs232_tx_i	: std_logic_vector(7 downto 0);
+	signal rs232_tx_t	: std_logic_vector(7 downto 0); --ada t sama r mesti ganti downto nya
+	signal rs232_tx_r	: std_logic_vector(7 downto 0);
+	signal receive_data_t: std_logic_vector(7 downto 0);
 	
 begin
 
@@ -66,22 +80,30 @@ begin
 			receive 		=> receive,
 			receive_data=> receive_data,
 			rs232_rx 	=> rs232_rx,
-			rs232_tx 	=> rs232_tx
+			rs232_tx 	=> rs232_tx_i
 	);
 	
 	send_data <= "01010101";
 	
 	Converter: bintodec
 	port map (
-			inp_bin		=> rs232_tx
-			out_dec		=> out_dec
+			inp_bin		=> rs232_tx_t,
+			out_dec		=> rs232_tx_r
+	);
 	
 	Calculator: Calculator
 	port map (
-			input1		=> receive()
-			input2		=> receive()
-			in_sel		=> receive()
-			result		=> send
+			input1		=> receive_data_t(), --apa harusnya receive_data and pararela
+			input2		=> receive_data_t(),
+			in_sel		=> receive_data_t(),
+			result		=> send_data --apa harusnya ke send data and pararel
+	);
+	
+	Register_Luar: register_out
+	port map (
+			reg_in		=> rs232_tx_i,
+			reg_out		=> rs232_tx_t
+	);
 	
 --	dectoascii kalo perlu andaikan terminal gabisa masukin integer value
 	
@@ -94,7 +116,10 @@ begin
 				seven_segment <= receive_data;
 			end if;
 		end if;
-	end process;
+	
+	Digit_SS <= "0101";
+
+end architecture;
 	
 	Digit_SS <= "0101";
 
