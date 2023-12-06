@@ -1,0 +1,31 @@
+--entity top is
+--    port (
+--        rs232_rx : in std_logic;
+--        rs232_tx : out std_logic;
+--       calc_in : in std_logic_vector(7 downto 0);
+--        result : out std_logic_vector(7 downto 0)
+--    );
+--end entity top;
+
+--architecture RTL of top is
+--    signal send_data : std_logic_vector(7 downto 0); --ganti downto
+--begin
+--    uart_inst : entity work.ContohUART
+--        port map (
+--            rs232_rx : rs232_rx,
+--            rs232_tx : rs232_tx,
+--            send_data : send_data
+--        );
+
+--    calc_inst : entity work.Calculator
+--        port map (
+--            result : result --masukin fungsi bin to ascii
+--        );
+--
+--    conv_inst : entity work.converter
+--        port map (
+--            converted : calc_in, --masukin fungsi ascii to bin
+--        );
+--
+--    uart_data <= calc_out; --masukin fungsi bin to ascii
+--end architecture rtl;

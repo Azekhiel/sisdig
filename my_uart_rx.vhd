@@ -34,13 +34,13 @@ architecture RTL of my_uart_rx is
 	signal rx_temp_data, rx_data_r: std_logic_vector(7 downto 0);
 
 	
-	component dectobin is 
-		port(
-			int_in : integer;
-			float_in : integer;
-			out_bin : out std_logic(14 downto 0)
-		);
-	end component; 
+--	component dectobin is 
+--		port(
+--			int_in : integer;
+--			float_in : integer;
+--			out_bin : out std_logic(14 downto 0)
+--		);
+--	end component; 
 
 begin
 
@@ -118,7 +118,7 @@ end process;
 		end if;
 	end process;
 	
-	rx_int <= rx_int_i
+	rx_int <= rx_int_i;
 	rx_data <= rx_data_r;
 
 --C1 : dectobin Port MAP (int_in <=  rx_int_i, float_in <=  rx_int_i, out_bin <=  rx_int);

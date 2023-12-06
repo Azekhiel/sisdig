@@ -28,12 +28,12 @@ architecture RTL of my_uart_tx is
 	signal tx_en: std_logic;
 	signal num : unsigned(3 downto 0);
 	
-	component bintodec is 
-		port(
-			inp_bin : in std_logic_vector (27 downto 0);
-			out_dec : out integer
-		);
-	end component; 
+--	component bintodec is 
+--		port(
+--			inp_bin : in std_logic_vector (27 downto 0);
+--			out_dec : out integer
+--		);
+--	end component; 
 	
 begin
 -- The process below is to ensure 'neg_rx_int' react to negative edge of rx interrupt 
@@ -115,7 +115,7 @@ begin
 		end if;
 	end process;
 	
-rs232_tx <= rs232_tx_r
+rs232_tx <= rs232_tx_r;
 --C1 : bintodec Port MAP (rs232_tx_r,rs232_tx);
 
 end architecture;
