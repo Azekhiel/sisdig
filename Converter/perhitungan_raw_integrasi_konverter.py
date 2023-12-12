@@ -55,7 +55,7 @@ def perhitungan_raw(int_in, float_in, exp_in, sign_in):
         exp_out = exp_in
     elif exp_in == 0:
         int_out = int_in
-        float_out = float_in
+        float_out = float_in*10000
         exp_out = exp_in
     elif exp_in >= -5:
         int_out = 0
@@ -72,5 +72,5 @@ def perhitungan_raw(int_in, float_in, exp_in, sign_in):
 sign_in = '0'  # Assuming positive number for demonstration
 int_in = 4
 float_in = 5
-exp_in = -1
+exp_in = 0
 print(perhitungan_raw(int_in, float_in, exp_in, sign_in))
