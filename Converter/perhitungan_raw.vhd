@@ -52,7 +52,7 @@ begin
 
         elsif exp_in=0 then
             int := int_in;
-            float:= float_in;
+            float:= float_in*10000;
       
 		elsif exp_in>=-5 then
             int := 0;
