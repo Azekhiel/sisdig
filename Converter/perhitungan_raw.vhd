@@ -10,7 +10,7 @@ entity perhitungan_raw is
         exp_in: in integer range -9 to 9;
         sign_in: in std_logic;
 		int_out: buffer integer  range 0 to 100000;
-		float_out : buffer integer range 0 to 10000 ;
+		float_out : buffer integer range 0 to 100000 ;
 		exp_out : buffer integer range 0 to 100;
 		out_bin : buffer std_logic_vector (15 downto 0)
     );
@@ -21,6 +21,7 @@ architecture behavioral of perhitungan_raw is
     signal int: integer;
     signal float: integer;
     signal exp : integer range 0 to 100;
+	 signal pengali: integer;
 
 	component dectobin is
 	port(
@@ -29,6 +30,7 @@ architecture behavioral of perhitungan_raw is
         exp_in: in integer;
         sign_in: in std_logic;
         out_bin: out std_logic_vector(15 downto 0)
+		  
 	);
 	end component;
 begin
@@ -37,23 +39,28 @@ begin
         variable int: integer;
         variable float: integer;
         variable exp : integer range 0 to 100;
+		  variable pengali: integer ;
 
 
     begin
+			pengali := 1;
         if exp_in>=1 then
-            int := int_in * (10**exp_in) + float_in * (10**(exp_in-1));
+		  for i in exp_temp downto 1 loop
+            pengali := pengali *10;
+			end loop;
+			int:= int_in*pengali + float_in*pengali/10;
 
-            float:= 0;
-        
-       
-        
         elsif exp_in=0 then
             int := int_in;
             float:= float_in;
       
 		elsif exp_in>=-5 then
             int := 0;
-			float := int_in * (10**(6-exp_in)) + float_in*(10**(5-exp_in))
+				pengali := 100000;
+				for j in  (-1)*exp_temp downto 1 loop
+				pengali := pengali/10;
+				end loop;
+				float:= int_in*pengali + float_in*pengali/10;
         end if;
 		  int_out <= int;
 		  float_out <= float;
