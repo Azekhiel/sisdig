@@ -11,8 +11,10 @@ entity perhitungan_raw is
         sign_in: in std_logic;
 		int_out: buffer integer  range 0 to 100000;
 		float_out : buffer integer range 0 to 100000 ;
-		exp_out : buffer integer range 0 to 100;
-		out_bin : buffer std_logic_vector (15 downto 0)
+		--exp_out : buffer integer range 0 to 100;
+		out_bin : out std_logic_vector (15 downto 0)
+		--tes_gabungan: out std_logic_vector (32 downto 0);
+		--iterasi_while :out integer range 0 to 40
     );
 end perhitungan_raw;
 
@@ -20,16 +22,21 @@ architecture behavioral of perhitungan_raw is
 	 constant exp_temp : integer := exp_in;
     signal int: integer;
     signal float: integer;
-    signal exp : integer range 0 to 100;
 	 signal pengali: integer;
+	 
+	 --signal int_out : integer range 0 to 100000;
+	 --signal float_out: integer range 0 to 100000;
 
 	component dectobin is
 	port(
 	     int_in: in integer;
         float_in: in integer; 
-        exp_in: in integer;
         sign_in: in std_logic;
         out_bin: out std_logic_vector(15 downto 0)
+        --tes_int : out std_logic_vector (10 downto 0);
+        --tes_float : out std_logic_vector (10 downto 0);
+        --tes_gabungan : out std_logic_vector (32 downto 0);
+        --iterasi_while : out integer range 0 to 40
 		  
 	);
 	end component;
@@ -64,15 +71,15 @@ begin
         end if;
 		  int_out <= int;
 		  float_out <= float;
-		  exp_out <= exp;
 		end process;
 		
 		Jawaban: dectobin PORT MAP (
 		int_in => int_out,
 		float_in => float_out,
-		exp_in => exp_out,
 		sign_in => sign_in,
 		out_bin => out_bin
+		--tes_gabungan => tes_gabungan,
+		--iterasi_while => iterasi_while
 		);
 		
 		end behavioral;
