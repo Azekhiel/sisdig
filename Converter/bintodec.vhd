@@ -12,7 +12,10 @@ port(
     angka_1 : out std_logic_vector (7 downto 0);
     angka_2 : out std_logic_Vector (7 downto 0);
     sign_exp: out std_logic_vector (7 downto 0);
-    sign : out std_logic_vector (7 downto 0)
+    sign : out std_logic_vector (7 downto 0);
+    
+    integer_angka1 : out integer range 0 to 9;
+    integer_angka2 : out integer range 0 to 9
 );
 end bintodec;
 
@@ -54,6 +57,7 @@ architecture behavioral of bintodec is
 	
 	if temp>=10000000 then
 	temp := temp/10;
+	pangkat_10 := pangkat_10 +1;
 	end if;
 
 	pembatas:= 1;
@@ -63,16 +67,16 @@ architecture behavioral of bintodec is
 	
 	
 	if exp >=0 then
-		for i in exp downto 0 loop
+		for i in exp downto 1 loop
 			temp := temp*2;
-			if temp> pembatas then
+			if temp>= pembatas then
 				temp := temp/10;
 				pangkat_10 := pangkat_10+1;
 			end if;
 		
 		end loop;
 	else
-	for i in ((-1)*exp) downto 0 loop
+	for i in ((-1)*exp) downto 1 loop
 	if temp mod 2 = 1 then
 		if temp<=1000000 then
 			temp := temp * 10;
@@ -97,12 +101,12 @@ architecture behavioral of bintodec is
 	pangkat_10_2 := pangkat_10_2-1;
 	
 	if exp<0 then
-	pangkat_1 <= "0011"&std_logic_vector(to_unsigned((pangkat_10_2 - pangkat_10)/10, 4));
-	pangkat_2 <= "0011"&std_logic_vector(to_unsigned((pangkat_10_2 - pangkat_10), 4));
+	pangkat_1 <= "0011"&std_logic_vector(to_unsigned((pangkat_10+1-pangkat_10_2)/10, 4));
+	pangkat_2 <= "0011"&std_logic_vector(to_unsigned((pangkat_10+1-pangkat_10_2) mod 10, 4));
 	sign_exp <= "00101101";
 	else
-	pangkat_1 <= "0011"&std_logic_vector(to_unsigned((pangkat_10_2 + pangkat_10)/10, 4));
-	pangkat_2 <= "0011"&std_logic_vector(to_unsigned((pangkat_10_2 + pangkat_10), 4));
+	pangkat_1 <= "0011"&std_logic_vector(to_unsigned((pangkat_10_2 + pangkat_10 -1)/10, 4));
+	pangkat_2 <= "0011"&std_logic_vector(to_unsigned((pangkat_10_2 + pangkat_10 -1) mod 10, 4));
 	sign_exp <= "00101011";
 	end if;
 	
@@ -121,7 +125,11 @@ architecture behavioral of bintodec is
 
 	else
 	angka_1 <= "0011"&std_logic_vector(to_unsigned(temp_temp/1000000, 4));
+	integer_angka1 <= temp_temp/1000000;
+	
 	angka_2 <= "0011"&std_logic_vector(to_unsigned(((temp_temp mod 1000000)/100000), 4));
+	integer_angka2 <= (temp_temp mod 1000000)/100000;
+	
 	sign <= "00101" & input(27) & not input(27) & "1"; 
 	end if;
 	
