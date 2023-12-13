@@ -22,6 +22,7 @@ end bintodec;
 architecture behavioral of bintodec is
 	
 	constant exp : integer :=to_integer(unsigned(input (26 downto 21))) -31 -21;
+	signal exp_temp: integer;
 	signal temp : integer;
 	signal pangkat_10 : integer;
 	
@@ -35,6 +36,7 @@ architecture behavioral of bintodec is
 	
 	begin
 	process (input)
+	variable exp_temp: integer;
 	variable temp: integer;
 	variable pangkat_10 : integer;
 	variable pangkat_10_2: integer;
@@ -93,20 +95,21 @@ architecture behavioral of bintodec is
 	pangkat_10_2 := 0;
 	
 	iterasi_while_1 := 0;
-	while not(temp_buat_cek = 0) and iterasi_while_1 <= 8 loop
+	while temp_buat_cek > 0 and iterasi_while_1 < 20  loop
 	temp_buat_cek :=  temp_buat_cek/10;
 	pangkat_10_2 := pangkat_10_2 +1;
 	iterasi_while_1 := iterasi_while_1 +1;
 	end loop;
 	pangkat_10_2 := pangkat_10_2-1;
 	
-	if exp<0 then
-	pangkat_1 <= "0011"&std_logic_vector(to_unsigned((pangkat_10+1-pangkat_10_2)/10, 4));
-	pangkat_2 <= "0011"&std_logic_vector(to_unsigned((pangkat_10+1-pangkat_10_2) mod 10, 4));
+	exp_temp := exp;
+	if exp_temp<0 then
+	pangkat_1 <= "0011"&std_logic_vector(to_unsigned((pangkat_10-pangkat_10_2)/10, 4));
+	pangkat_2 <= "0011"&std_logic_vector(to_unsigned((pangkat_10-pangkat_10_2) mod 10, 4));
 	sign_exp <= "00101101";
 	else
-	pangkat_1 <= "0011"&std_logic_vector(to_unsigned((pangkat_10_2 + pangkat_10 -1)/10, 4));
-	pangkat_2 <= "0011"&std_logic_vector(to_unsigned((pangkat_10_2 + pangkat_10 -1) mod 10, 4));
+	pangkat_1 <= "0011"&std_logic_vector(to_unsigned((pangkat_10_2 + pangkat_10)/10, 4));
+	pangkat_2 <= "0011"&std_logic_vector(to_unsigned((pangkat_10_2 + pangkat_10) mod 10, 4));
 	sign_exp <= "00101011";
 	end if;
 	
