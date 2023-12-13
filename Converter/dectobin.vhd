@@ -28,7 +28,7 @@ architecture behavioral of dectobin is
     signal l: integer;
     signal k: std_logic;
     signal exp : integer;
-    signal mantissa : std_logic_vector (9 downto 0);
+   -- signal mantissa : std_logic_vector (9 downto 0);
     signal exp_sementara: std_logic_vector (4 downto 0);
 	-- 		  signal zero : std_logic_vector (9 downto 0) := "0000000000";
 	signal out_signal_expand : std_logic_vector (32 downto 0);
@@ -47,7 +47,7 @@ begin
         variable l: integer;
        -- variable k: std_logic;
         variable exp : integer;
-        variable mantissa : std_logic_vector (9 downto 0);
+       -- variable mantissa : std_logic_vector (9 downto 0);
         variable exp_sementara: std_logic_vector (4 downto 0);
         
         variable iterasi_while_1: integer :=21;
@@ -101,7 +101,7 @@ begin
         
         exp := (iterasi_while_1 - 10) + 15 ;
 --		  if l>=10 then
-        mantissa := out_signal_expand((iterasi_while_1+11) downto (iterasi_while_1 +2));
+     --   mantissa := out_signal_expand((iterasi_while_1+11) downto (iterasi_while_1 +2));
 	--	  else
 		--  zero (9 downto (10-l)) <= out_signal((l-1) downto 0);
 			--mantissa := zero;
